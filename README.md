@@ -256,7 +256,7 @@ export default App
 # Class Activity:
 # 💳 Activity: Build a Simple Payment Portal
 
-In this activity, we’ll create a **payment portal UI** using React, TailwindCSS, and DaisyUI.  
+In this activity, we’ll create a **payment portal UI** using React, TailwindCSS, and DaisyUI. This one is extremely barebones and does not include any tailwind or daisy styling at all. App.jsx is fine as is for now. Focus on the **Index.html** and alter it based on your design preferences.
 ⚠️ This is **frontend only** — it won’t actually process payments.
 
 ---
@@ -413,6 +413,198 @@ export default App;
 </body>
 </html>
 ```
+
+Now that you have seen the frontend with zero styling, lets take a look at our app with some Tailwind CSS and Daisy UI components:
+
+```
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+  <div class="card w-full max-w-md bg-base-100 shadow-2xl border border-base-300">
+    <div class="card-body p-8">
+      <!-- Header -->
+      <div class="text-center mb-6">
+        <div class="avatar placeholder mb-4">
+          <div class="bg-primary text-primary-content rounded-full w-16 h-16">
+            <i class="fas fa-credit-card text-2xl"></i>
+          </div>
+        </div>
+        <h2 class="card-title text-2xl font-bold text-center justify-center text-base-content">
+          Secure Payment
+        </h2>
+        <p class="text-base-content/70 text-sm mt-2">Enter your payment details below</p>
+      </div>
+
+      <form class="space-y-4" onsubmit="handleSubmit(event)">
+        <!-- Cardholder Name -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-medium">
+              <i class="fas fa-user mr-2 text-primary"></i>Cardholder Name
+            </span>
+          </label>
+          <input
+            type="text"
+            name="name"
+            placeholder="John Doe"
+            class="input input-bordered input-primary w-full focus:input-primary transition-all duration-200"
+            id="name"
+            required
+          />
+        </div>
+
+        <!-- Card Number -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text font-medium">
+              <i class="fas fa-credit-card mr-2 text-primary"></i>Card Number
+            </span>
+          </label>
+          <input
+            type="text"
+            name="cardNumber"
+            placeholder="1234 5678 9012 3456"
+            class="input input-bordered input-primary w-full focus:input-primary transition-all duration-200"
+            id="cardNumber"
+            maxlength="19"
+            required
+          />
+        </div>
+
+        <!-- Expiry and CVV -->
+        <div class="flex gap-4">
+          <div class="form-control flex-1">
+            <label class="label">
+              <span class="label-text font-medium">
+                <i class="fas fa-calendar mr-2 text-primary"></i>Expiry
+              </span>
+            </label>
+            <input
+              type="text"
+              name="expiry"
+              placeholder="MM/YY"
+              class="input input-bordered input-primary w-full focus:input-primary transition-all duration-200"
+              id="expiry"
+              maxlength="5"
+              required
+            />
+          </div>
+          <div class="form-control flex-1">
+            <label class="label">
+              <span class="label-text font-medium">
+                <i class="fas fa-lock mr-2 text-primary"></i>CVV
+              </span>
+            </label>
+            <input
+              type="password"
+              name="cvv"
+              placeholder="123"
+              class="input input-bordered input-primary w-full focus:input-primary transition-all duration-200"
+              id="cvv"
+              maxlength="4"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Security Badge -->
+        <div class="alert alert-info bg-info/10 border-info/20">
+          <i class="fas fa-shield-alt text-info"></i>
+          <span class="text-sm">Your payment information is encrypted and secure</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-primary w-full mt-6 text-lg font-semibold h-12 hover:scale-[1.02] transition-transform duration-200" type="submit">
+          <i class="fas fa-lock mr-2"></i>
+          Process Payment
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <div class="text-center mt-6 pt-4 border-t border-base-300">
+        <p class="text-xs text-base-content/60">
+          <i class="fas fa-shield-alt mr-1"></i>
+          Protected by 256-bit SSL encryption
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Format card number input
+    document.getElementById('cardNumber').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formattedValue;
+    });
+
+    // Format expiry input
+    document.getElementById('expiry').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.substring(0,2) + '/' + value.substring(2,4);
+      }
+      e.target.value = value;
+    });
+
+    // CVV input restriction
+    document.getElementById('cvv').addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const button = event.target.querySelector('button[type="submit"]');
+      
+      // Loading state
+      button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+      button.disabled = true;
+      
+      setTimeout(() => {
+        // Success state
+        button.innerHTML = '<i class="fas fa-check mr-2"></i>Payment Successful!';
+        button.classList.remove('btn-primary');
+        button.classList.add('btn-success');
+        
+        // Show success alert
+        const alertHtml = `
+          <div class="alert alert-success mt-4 animate-pulse">
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <h3 class="font-bold">Payment Successful!</h3>
+              <div class="text-sm">Thank you, ${name}. Your payment has been processed.</div>
+            </div>
+          </div>
+        `;
+        
+        const form = event.target;
+        form.insertAdjacentHTML('afterend', alertHtml);
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          button.innerHTML = '<i class="fas fa-lock mr-2"></i>Process Payment';
+          button.classList.remove('btn-success');
+          button.classList.add('btn-primary');
+          button.disabled = false;
+          const alert = document.querySelector('.alert-success');
+          if (alert) alert.remove();
+        }, 3000);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
+```
+
 ## Step 2: Experiment 🎨
 Change the card theme by adding bg-primary text-primary-content to the card div.
 
