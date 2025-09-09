@@ -342,6 +342,77 @@ function App() {
 }
 export default App;
 ```
+
+## HTML Code:
+```
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Portal</title>
+  <link href="/src/style.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-base-200 flex items-center justify-center">
+
+  <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title text-center">💳 Payment Portal</h2>
+      <form class="form-control space-y-3" onsubmit="handleSubmit(event)">
+        
+        <input
+          type="text"
+          name="name"
+          placeholder="Cardholder Name"
+          class="input input-bordered w-full"
+          id="name"
+          required
+        />
+
+        <input
+          type="text"
+          name="cardNumber"
+          placeholder="Card Number"
+          class="input input-bordered w-full"
+          id="cardNumber"
+          required
+        />
+
+        <div class="flex space-x-2">
+          <input
+            type="text"
+            name="expiry"
+            placeholder="MM/YY"
+            class="input input-bordered w-1/2"
+            id="expiry"
+            required
+          />
+          <input
+            type="password"
+            name="cvv"
+            placeholder="CVV"
+            class="input input-bordered w-1/2"
+            id="cvv"
+            required
+          />
+        </div>
+
+        <button class="btn btn-primary mt-4" type="submit">Pay Now</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      alert(`💸 Payment Submitted!\n\nName: ${name}`);
+    }
+  </script>
+  
+</body>
+</html>
+```
 ## Step 2: Experiment 🎨
 Change the card theme by adding bg-primary text-primary-content to the card div.
 
