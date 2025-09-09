@@ -303,30 +303,31 @@ function App() {
 }
 
 export default App;
-Step 2: Experiment 🎨
+```
+## Step 2: Experiment 🎨
 Change the card theme by adding bg-primary text-primary-content to the card div.
 
 Add a select dropdown for payment method:
 
 jsx
-Copy code
+```
 <select className="select select-bordered w-full">
   <option disabled selected>Select Payment Method</option>
   <option>Visa</option>
   <option>MasterCard</option>
   <option>PayPal</option>
 </select>
+```
 Add a loading state to the button:
 
-jsx
+jsx```
 Copy code
 <button className="btn btn-primary loading">Processing...</button>
-
+```
 
 ### Run the development server:
 ```bash
 npm run dev
-```
 
 ## Troubleshooting Common Issues
 
