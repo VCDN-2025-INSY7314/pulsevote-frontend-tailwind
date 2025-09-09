@@ -301,7 +301,6 @@ function App() {
     </div>
   );
 }
-
 export default App;
 ```
 ## Step 2: Experiment 🎨
@@ -319,8 +318,8 @@ jsx
 </select>
 ```
 Add a loading state to the button:
-
-jsx```
+jsx
+```
 Copy code
 <button className="btn btn-primary loading">Processing...</button>
 ```
@@ -328,6 +327,7 @@ Copy code
 ### Run the development server:
 ```bash
 npm run dev
+```
 
 ## Troubleshooting Common Issues
 
