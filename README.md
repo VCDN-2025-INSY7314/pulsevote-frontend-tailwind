@@ -1,5 +1,23 @@
 # Vite + React + Tailwind + Daisy UI Setup Guide
 
+# Fix
+If you are getting this error: 
+```
+PS C:\Users\mahab\OneDrive\Desktop\Tailwind> npx tailwindcss init -p
+>> 
+npm error could not determine executable to run
+npm error A complete log of this run can be found in: C:\Users\mahab\AppData\Local\npm-cache\_logs\2025-09-09T08_58_11_580Z-debug-0.log  
+```
+Give this a try:
+```
+npm uninstall tailwindcss
+```
+```
+npm install -D tailwindcss@3 postcss autoprefixer
+```
+- After doing the above re-run the npx command that failed earlier
+
+
 # Why Use TailwindCSS and DaisyUI Instead of Traditional CSS?
 
 ## 1. Traditional CSS is powerful, but slow for modern development
