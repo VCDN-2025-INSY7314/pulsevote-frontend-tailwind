@@ -214,6 +214,115 @@ function App() {
 export default App
 ```
 
+# Class Activity:
+# 💳 Activity: Build a Simple Payment Portal
+
+In this activity, we’ll create a **payment portal UI** using React, TailwindCSS, and DaisyUI.  
+⚠️ This is **frontend only** — it won’t actually process payments.
+
+---
+
+## Step 1: Replace `App.jsx`
+
+Open `src/App.jsx` and paste this code:
+
+```jsx
+import { useState } from "react";
+
+function App() {
+  const [formData, setFormData] = useState({
+    name: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`💸 Payment Submitted!\n\nName: ${formData.name}`);
+  };
+
+  return (
+    <div className="min-h-screen bg-base-200 flex items-center justify-center">
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title text-center">💳 Payment Portal</h2>
+          <form onSubmit={handleSubmit} className="form-control space-y-3">
+            
+            <input
+              type="text"
+              name="name"
+              placeholder="Cardholder Name"
+              className="input input-bordered w-full"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="cardNumber"
+              placeholder="Card Number"
+              className="input input-bordered w-full"
+              value={formData.cardNumber}
+              onChange={handleChange}
+              required
+            />
+
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                name="expiry"
+                placeholder="MM/YY"
+                className="input input-bordered w-1/2"
+                value={formData.expiry}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="password"
+                name="cvv"
+                placeholder="CVV"
+                className="input input-bordered w-1/2"
+                value={formData.cvv}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button className="btn btn-primary mt-4">Pay Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+Step 2: Experiment 🎨
+Change the card theme by adding bg-primary text-primary-content to the card div.
+
+Add a select dropdown for payment method:
+
+jsx
+Copy code
+<select className="select select-bordered w-full">
+  <option disabled selected>Select Payment Method</option>
+  <option>Visa</option>
+  <option>MasterCard</option>
+  <option>PayPal</option>
+</select>
+Add a loading state to the button:
+
+jsx
+Copy code
+<button className="btn btn-primary loading">Processing...</button>
+
+
 ### Run the development server:
 ```bash
 npm run dev
