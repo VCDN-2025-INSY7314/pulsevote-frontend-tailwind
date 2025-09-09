@@ -6,20 +6,24 @@
 ```bash
 # Create new Vite project with React
 npm create vite@latest my-react-app -- --template react
-
+```
 # Navigate to project
+```
 cd my-react-app
-
+```
 # Install dependencies
+```
 npm install
 ```
 
 ### Step 2: Install Tailwind CSS
+Install Tailwind CSS and its peer dependencies
 ```bash
-# Install Tailwind CSS and its peer dependencies
 npm install -D tailwindcss postcss autoprefixer
+```
 
 # Generate Tailwind config files
+```
 npx tailwindcss init -p
 ```
 
@@ -40,8 +44,8 @@ export default {
 ```
 
 ### Step 4: Install Daisy UI
-```bash
 # Install Daisy UI
+```bash
 npm install -D daisyui@latest
 ```
 
@@ -267,12 +271,11 @@ npm run dev
 There are community templates that include this entire stack:
 
 ```bash
-# Using a community template (if available)
 npm create vite@latest my-app -- --template react-tailwind-daisyui
 ```
 
 Or search for templates:
 ```bash
 npm create vite@latest my-app -- --template
-# Then select from available templates
 ```
+# Then select from available templates
